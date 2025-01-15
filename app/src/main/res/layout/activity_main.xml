@@ -25,7 +25,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="送信"
-        android:background="@color/purple_500"
+        android:background="#808080"
         android:textColor="#FFFFFF"
         android:padding="8dp" />
 </LinearLayout>
