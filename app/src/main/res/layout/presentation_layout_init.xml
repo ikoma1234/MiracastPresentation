@@ -11,7 +11,7 @@
         android:id="@+id/presentationText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="答えを入力せよ！"
+        android:text="回答を入力せよ！"
         android:textSize="60sp"
         android:textColor="#000000"
         android:gravity="center" />
