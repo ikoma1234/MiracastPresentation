@@ -34,17 +34,17 @@ class KeyboardActivity : AppCompatActivity() {
         val keyboardLayout: GridLayout = findViewById(R.id.keyboardLayout)
 
         hiraganaList.forEach { char ->
-            val buttonSize = 100  // ボタンのサイズ（ピクセル単位）
+            val buttonSize = 140  // ボタンのサイズ（ピクセル単位）
 
             val button = Button(this).apply {
                 text = char
-                textSize = 24f  // 文字サイズ（単位: sp）
+                textSize = 40f  // 文字サイズ（単位: sp）
                 setTextColor(Color.WHITE)  // 文字の色
                 setTypeface(typeface, Typeface.BOLD)  // 太字設定
                 layoutParams = GridLayout.LayoutParams().apply {
                     width = buttonSize
                     height = buttonSize
-                    setMargins(8, 8, 8, 8)  // 余白の設定
+                    setMargins(2, 2, 2, 2)  // 余白の設定
                 }
                 setBackgroundColor(Color.parseColor("#6200EE"))  // ボタンの背景色
                 setOnClickListener { onKeyPressed(char) }

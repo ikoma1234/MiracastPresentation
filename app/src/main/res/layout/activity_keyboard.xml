@@ -9,9 +9,9 @@
         android:id="@+id/tvInputText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="24sp"
+        android:textSize="0sp"
         android:background="@android:color/darker_gray"
-        android:padding="8dp" />
+        android:padding="0dp" />
 
     <!-- ひらがなキーボード -->
     <GridLayout
