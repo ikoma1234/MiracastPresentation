@@ -36,6 +36,8 @@ class MainActivity : AppCompatActivity() {
         "U", "V", "W", "X", "Y", "Z", " ", " ", " ","削除"
     )
 
+    private val answer = "ばなな"
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -45,7 +47,26 @@ class MainActivity : AppCompatActivity() {
         val sendButton = findViewById<Button>(R.id.sendButton)
         val keyboardLayout: GridLayout = findViewById(R.id.keyboardLayout)
 
-        hiraganaList.forEach { char ->
+        createKeyboard(hiraganaList, keyboardLayout)
+
+        // 上画面作成
+        displayManager = getSystemService(Context.DISPLAY_SERVICE) as DisplayManager
+        val displays = displayManager.displays
+
+        if (displays.size > 1) {
+            // 外部ディスプレイが接続されている場合
+            showPresentation(displays[1], displayNumber = 1)
+        } else {
+            Toast.makeText(
+                this, "ディスプレイが見つかりません！スタッフにご連絡ください。", Toast.LENGTH_SHORT
+            ).show()
+        }
+
+        sendButton.setOnClickListener { onSendButtonPressed() }
+    }
+
+    private fun createKeyboard(keyboardList: List<String>, keyboardLayout: GridLayout) {
+        keyboardList.forEach { char ->
             val buttonSize = 120  // ボタンのサイズ（ピクセル単位）
 
             val button = Button(this).apply {
@@ -63,28 +84,15 @@ class MainActivity : AppCompatActivity() {
             }
             keyboardLayout.addView(button)
         }
+    }
 
-        // 上画面作成
-        displayManager = getSystemService(Context.DISPLAY_SERVICE) as DisplayManager
-        val displays = displayManager.displays
-
-        if (displays.size > 1) {
-            // 外部ディスプレイが接続されている場合
-            showPresentation(displays[1], displayNumber = 1)
+    private fun onSendButtonPressed() {
+        if (tvInputText.text.toString() == answer) {
+            showPresentation(displayManager.displays[1], displayNumber = 2)
         } else {
-            Toast.makeText(
-                this, "ディスプレイが見つかりません！スタッフにご連絡ください。", Toast.LENGTH_SHORT
-            ).show()
+            showPresentation(displayManager.displays[1], displayNumber = 3)
         }
-
-        sendButton.setOnClickListener {
-            if (tvInputText.text.toString() == "ばなな") {
-                showPresentation(displays[1], displayNumber = 2)
-            } else {
-                showPresentation(displays[1], displayNumber = 3)
-            }
-            tvInputText.text = ""
-        }
+        tvInputText.text = ""
     }
 
     private fun onKeyPressed(char: String) {
