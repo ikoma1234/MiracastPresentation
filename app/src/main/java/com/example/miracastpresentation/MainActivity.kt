@@ -19,7 +19,6 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var displayManager: DisplayManager
     private var presentation: CustomPresentation? = null
-    private lateinit var presentationText: TextView
 
     private lateinit var tvInputText: TextView
     private val hiraganaList = listOf(
@@ -72,7 +71,6 @@ class MainActivity : AppCompatActivity() {
         if (displays.size > 1) {
             // 外部ディスプレイが接続されている場合
             showPresentation(displays[1], displayNumber = 1)
-            presentationText = findViewById(R.id.presentationText)
         } else {
             Toast.makeText(
                 this, "ディスプレイが見つかりません！スタッフにご連絡ください。", Toast.LENGTH_SHORT
@@ -80,13 +78,12 @@ class MainActivity : AppCompatActivity() {
         }
 
         sendButton.setOnClickListener {
-            val text = tvInputText.text.toString()
-            if (text == "ばなな") {
+            if (tvInputText.text.toString() == "ばなな") {
                 showPresentation(displays[1], displayNumber = 2)
             } else {
                 showPresentation(displays[1], displayNumber = 3)
             }
-            tvInputText.text = "" // テキストボックスをクリア
+            tvInputText.text = ""
         }
     }
 
@@ -137,6 +134,9 @@ class MainActivity : AppCompatActivity() {
 
     private fun showPresentation(display: Display, displayNumber: Int) {
         // 新しいプレゼンテーションを作成して表示
+        // 更新遅延防止のため、二回実施
+        presentation = CustomPresentation(this, display, displayNumber)
+        presentation?.show()
         presentation = CustomPresentation(this, display, displayNumber)
         presentation?.show()
     }
